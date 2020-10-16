@@ -7,7 +7,7 @@
  */
 
 import React, { useEffect } from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import MainTabScreen from './screens/MainTabScreen';
@@ -24,21 +24,30 @@ const Drawer = createDrawerNavigator();
 const App = (props)  => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [userToken, setUserToken] = React.useState(null);
+  const [role, setRole] = React.useState('');
 
   const authContext = React.useMemo(()=> ({
-    signIn: () => {
+    signIn: (role) => {
       setUserToken('fgkj');
       setIsLoading(false);
+      setRole(role);
     },
-    signOut: () => {
+    signOut: (role) => {
       setUserToken(null);
       setIsLoading(false);
+      setRole(role);
     },
-    signUp: () => {
+    signUp: (role) => {
       setUserToken('fgkj');
       setIsLoading(false);
+      setRole(role);
     },
+    getRole: () => {
+      return role;
+    }
   }));
+
+ 
 
   useEffect(()=>{
     setTimeout(()=>{
@@ -56,16 +65,23 @@ const App = (props)  => {
   return (
     <AuthContext.Provider value={authContext}>
        <NavigationContainer>
-         { userToken !== null ? (
-           <Drawer.Navigator drawerContent={props=> <DrawerContent {...props} />}>
-            <Drawer.Screen name="Home" component={MainTabScreen} />
-            <Drawer.Screen name="Promo" component={PromoScreen} />
-            <Drawer.Screen name="Produk" component={ProductScreen} />
-          </Drawer.Navigator>
+         { userToken !== null && role == 'admin' ? (
+            <Drawer.Navigator drawerContent={props=> <DrawerContent {...props} />}>
+              <Drawer.Screen name="Home" component={MainTabScreen} />
+              <Drawer.Screen name="Promo" component={PromoScreen} />
+              <Drawer.Screen name="Produk" component={ProductScreen} />
+            </Drawer.Navigator>
+          )
+         
+         : userToken !== null && role == 'owner' ?  (
+            <Drawer.Navigator drawerContent={props=> <DrawerContent {...props} />}>
+              <Drawer.Screen name="Home" component={MainTabScreen} />
+              <Drawer.Screen name="Promo" component={PromoScreen} />
+              <Drawer.Screen name="Produk" component={ProductScreen} />
+            </Drawer.Navigator>
          )
          :
-
-        <RootStackScreen /> 
+         <RootStackScreen />
         }
       </NavigationContainer>
     </AuthContext.Provider>

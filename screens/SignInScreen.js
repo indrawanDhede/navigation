@@ -1,5 +1,6 @@
 import React from 'react';
-import {Text, View, Button, Dimensions, StyleSheet, Image, TouchableOpacity, Platform, TextInput, StatusBar} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Platform, TextInput, StatusBar} from 'react-native';
+import {Picker} from '@react-native-community/picker';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -14,6 +15,8 @@ const SignInScreen = ({navigation}) => {
         check_textInputChange: false,
         secureTextEntry: true,
     })
+
+    const [role, setRole] = React.useState('admin');
 
     const {signIn} = React.useContext(AuthContext);
 
@@ -115,10 +118,30 @@ return (
                     }
                 </TouchableOpacity>
             </View>
+
+            <Text style={[styles.text_footer, {marginTop: 15}]}>Role</Text>
+            <View style={styles.action}>
+                <FontAwesome
+                    name="users"
+                    color="#05375a"
+                    size={20}
+                 />
+                 <Picker
+                    selectedValue={role}
+                    style={styles.textInput}
+                    onValueChange={(role) =>
+                        setRole(role)
+                    }>
+                    <Picker.Item label="Admin" value="admin" />
+                    <Picker.Item label="Owner" value="owner" />
+                </Picker>
+
+            </View>
+
             <View style={styles.button}>
                 <TouchableOpacity
                     style={styles.signIn}
-                    onPress={()=> {signIn()}}
+                    onPress={()=> {signIn(role)}}
                 >
                     <LinearGradient
                         colors={['#08d4c4', '#01ab9d']}

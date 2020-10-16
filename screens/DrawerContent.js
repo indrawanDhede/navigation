@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {Avatar, Title, Caption, Paragraph, Drawer, TouchableRipple, Switch, Divider} from 'react-native-paper';
+import {View, StyleSheet} from 'react-native';
+import {Avatar, Title, Caption, Drawer, Divider} from 'react-native-paper';
 import {
     DrawerContentScrollView,
     DrawerItem,

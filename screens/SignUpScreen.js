@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Button, Dimensions, StyleSheet, Image, TouchableOpacity, Platform, TextInput, StatusBar} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Platform, TextInput, StatusBar} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
